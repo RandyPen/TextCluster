@@ -83,7 +83,7 @@ For more configure arguments description, see ```_get_parser()``` in ```cluster.
 
 ### Basic Idea
 
-![Algorithm_en](/Users/randypen/Code/TextCluster/data/images/Algorithm_en.png)
+![Algorithm_en](./data/images/Algorithm_en.png)
 
 ### File Structure
 
