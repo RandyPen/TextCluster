@@ -22,6 +22,12 @@ python cluster.py --infile ./data/infile \
 
 
 
+### 算法原理
+
+![算法原理](./data/images/Algorithm_cn.png)
+
+
+
 ### 文件路径
 
 ```html
@@ -53,7 +59,7 @@ TextCluster
 
 ### Introduction
 
-Text cluster is a normal preprocess method to analysis text feature. This project implements a memory friendly method for **short text cluster**. For long text, it will be preferable to choose [SimHash](https://en.wikipedia.org/wiki/SimHash) or [LDA](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) or others according to demand.
+Text cluster is a normal preprocess procedure to analysis text feature. This project implements a RAM friendly method only for **short text cluster**. For long text, it is preferable to choose [SimHash](https://en.wikipedia.org/wiki/SimHash) or [LDA](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) or others according to demand.
 
 
 
@@ -71,7 +77,13 @@ python cluster.py --infile ./data/infile_en \
 --lang en
 ```
 
+For more configure arguments description, see ```_get_parser()``` in ```cluster.py```, including stop words setting, sample number.
 
+
+
+### Basic Idea
+
+![Algorithm_en](/Users/randypen/Code/TextCluster/data/images/Algorithm_en.png)
 
 ### File Structure
 
