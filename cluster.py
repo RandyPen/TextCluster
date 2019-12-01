@@ -56,32 +56,38 @@ def main():
         if stop_words:
             seg_list = list(filter(lambda x: x not in stop_words, seg_list))
         for wd in seg_list:
+            if is_match:
+                break
             w_bucket = p_bucket[wd]
-            # is_match = False
             for bucket in w_bucket:
                 bucket_path = os.path.join(args.output, bucket)
                 check_file(bucket_path)
                 selected = sample_file(bucket_path, args.sample_number)
                 selected = list(map(lambda x: list(seg.cut(x)), selected))
+                # remove stop words
                 if stop_words:
                     filt_selected = list()
                     for sen in selected:
                         sen = list(filter(lambda x: x not in stop_words, sen))
                         filt_selected.append(sen)
                     selected = filt_selected
+                # calculate similarity with each bucket
                 if all(jaccard(seg_list, cmp_list) > args.threshold for cmp_list in selected):
                     is_match = True
                     with open(bucket_path, 'a', encoding='utf-8') as outfile:
                         outfile.write(line+'\n')
+                    for w in seg_list:
+                        if bucket not in p_bucket[w]:
+                            p_bucket[w].append(bucket)
                     break
-            if not is_match:
-                bucket_name = ('tmp' + id_name).format(save_idx)
-                w_bucket.append(bucket_name)
-                bucket_path = os.path.join(args.output, bucket_name)
-                with open(bucket_path, 'a', encoding='utf-8') as outfile:
-                    outfile.write(line+'\n')
-                save_idx += 1
-                break
+        if not is_match:
+            bucket_name = ('tmp' + id_name).format(save_idx)
+            bucket_path = os.path.join(args.output, bucket_name)
+            with open(bucket_path, 'a', encoding='utf-8') as outfile:
+                outfile.write(line+'\n')
+            for w in seg_list:
+                p_bucket[w].append(bucket_name)
+            save_idx += 1
 
     infile.close()
 
