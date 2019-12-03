@@ -59,7 +59,7 @@ TextCluster
 
 ### Introduction
 
-Text cluster is a normal preprocess procedure to analysis text feature. This project implements a RAM friendly method only for **short text cluster**. For long text, it is preferable to choose [SimHash](https://en.wikipedia.org/wiki/SimHash) or [LDA](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) or others according to demand.
+Text cluster is a normal preprocess procedure to analysis text feature. This project implements a memory friendly method only for **short text cluster**. For long text, it is preferable to choose [SimHash](https://en.wikipedia.org/wiki/SimHash) or [LDA](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation) or others according to demand.
 
 
 

@@ -4,6 +4,18 @@ import re
 import random
 
 
+class Range(object):
+    def __init__(self, start, end=None):
+        self.start = start
+        self.end = end
+
+    def __eq__(self, other):
+        if self.end:
+            return self.start <= other <= self.end
+        else:
+            return self.start <= other
+
+
 def check_file(file):
     if file is not None and not os.path.exists(file):
         print("File {} does not exist. Exit.".format(file))

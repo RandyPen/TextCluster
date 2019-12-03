@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 from utils.similar import jaccard
 from utils.segmentor import Segmentor
-from utils.utils import check_file, ensure_dir, clean_dir, sample_file, get_stop_words, line_counter
+from utils.utils import check_file, ensure_dir, clean_dir, sample_file, get_stop_words, line_counter, Range
 
 
 def _get_parser():
@@ -16,9 +16,9 @@ def _get_parser():
     parser.add_argument('--output', type=str, default='./data/output', help='Directory to save output file.')
     parser.add_argument('--dict', type=str, default='./data/seg_dict', help='Directory of dict file.')
     parser.add_argument('--stop_words', type=str, default='./data/stop_words', help='Directory of stop words.')
-    parser.add_argument('--sample_number', type=int, default=5, help='Sample number for each bucket.')
-    parser.add_argument('--threshold', type=float, default=0.3, help='Threshold for matching.')
-    parser.add_argument('--name_len', type=int, default=9, help='Filename length.')
+    parser.add_argument('--sample_number', type=int, default=5, choices=[Range(1)], help='Sample number for each bucket.')
+    parser.add_argument('--threshold', type=float, default=0.3, choices=[Range(0.0, 1.0)], help='Threshold for matching.')
+    parser.add_argument('--name_len', type=int, default=9, choices=[Range(2)], help='Filename length.')
     parser.add_argument('--name_len_update', type=bool, default=False, help='To update file name length.')
     parser.add_argument('--lang', type=str, choices=['cn', 'en'], default='cn', help='Segmentor language setting.')
     args = parser.parse_args()
