@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import argparse
+import pickle
 from collections import defaultdict
 
 from tqdm import tqdm
@@ -49,8 +50,9 @@ def main():
 
     print('Splitting sentence into different clusters ...')
     infile = open(args.infile, 'r', encoding="utf-8")
-    for line in tqdm(infile):
-        line = line.rstrip()
+    for inline in tqdm(infile):
+        inline = inline.rstrip()
+        line = inline.split(':::')[0]
         is_match = False
         seg_list = list(seg.cut(line))
         if stop_words:
@@ -63,6 +65,7 @@ def main():
                 bucket_path = os.path.join(args.output, bucket)
                 check_file(bucket_path)
                 selected = sample_file(bucket_path, args.sample_number)
+                selected = list(map(lambda x: x.split(':::')[0], selected))
                 selected = list(map(lambda x: list(seg.cut(x)), selected))
                 # remove stop words
                 if stop_words:
@@ -100,10 +103,20 @@ def main():
         cnt[file] = line_counter(file_path)
 
     sorted_cnt = sorted(cnt.items(), key=lambda kv: kv[1], reverse=True)
+    name_map = dict()
     for idx, (file_name, times) in enumerate(sorted_cnt):
         origin_path = os.path.join(args.output, file_name)
-        new_path = os.path.join(args.output, id_name.format(idx))
+        new_name = id_name.format(idx)
+        new_path = os.path.join(args.output, new_name)
         os.rename(origin_path, new_path)
+        name_map[file_name] = new_name
+
+    for k, v in p_bucket.items():
+        p_bucket[k] = list(map(lambda x: name_map[x], v))
+
+    p_bucket_path = os.path.join(args.output, 'p_bucket.pickle')
+    with open(p_bucket_path, 'wb') as outfile:
+        pickle.dump(p_bucket, outfile, protocol=pickle.HIGHEST_PROTOCOL)
 
     print('All is well')
 

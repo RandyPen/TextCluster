@@ -1,7 +1,7 @@
 # 短文本聚类
 
 ### 项目介绍
-短文本聚类是常用的文本预处理步骤，可以用于洞察文本常见模式、分析设计语义解析规范等。本项目实现了内存友好的短文本聚类方法。
+短文本聚类是常用的文本预处理步骤，可以用于洞察文本常见模式、分析设计语义解析规范、加速相似句子查询等。本项目实现了内存友好的短文本聚类方法，并提供了相似句子查询接口。
 
 
 
@@ -12,14 +12,14 @@
 
 
 ### 使用方法
-
+#### 聚类
 ```bash
 python cluster.py --infile ./data/infile \
 --output ./data/output
 ```
-
 具体参数设置可以参考```cluster.py```文件内```_get_parser()```函数参数说明，包含设置分词词典、停用词、匹配采样数、匹配度阈值等。
-
+#### 查询
+参考```Searcher```类的使用方法
 
 
 ### 算法原理
@@ -34,7 +34,8 @@ python cluster.py --infile ./data/infile \
 TextCluster
 |      README.md
 |      LICENSE
-|      cluster.py                    主要执行程序
+|      cluster.py                    聚类程序
+|      search.py                     查询程序
 |      
 |------utils                         公共功能模块
 |    |    __init__.py
