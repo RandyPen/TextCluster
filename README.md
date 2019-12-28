@@ -19,7 +19,7 @@ python cluster.py --infile ./data/infile \
 ```
 具体参数设置可以参考```cluster.py```文件内```_get_parser()```函数参数说明，包含设置分词词典、停用词、匹配采样数、匹配度阈值等。
 #### 查询
-参考```Searcher```类的使用方法，如果用于查询标注数据的场景，使用分隔符```:::```将句子与标注信息拼接起来。如```我是海贼王:::(λx.海贼王)```，在处理时候会只对句子处理。
+参考```search.py```代码里```Searcher```类的使用方法，如果用于查询标注数据的场景，使用分隔符```:::```将句子与标注信息拼接起来。如```我是海贼王:::(λx.海贼王)```，处理时会只对句子进行匹配。
 
 
 ### 算法原理
@@ -71,14 +71,14 @@ Text cluster is a normal preprocess procedure to analysis text feature. This pro
 
 
 ### Usage
-
+#### Clustering
 ```bash
 python cluster.py --infile ./data/infile_en \
 --output ./data/output \
 --lang en
 ```
-
 For more configure arguments description, see ```_get_parser()``` in ```cluster.py```, including stop words setting, sample number.
+#### Search
 
 
 
@@ -92,7 +92,8 @@ For more configure arguments description, see ```_get_parser()``` in ```cluster.
 TextCluster
 |      README.md
 |      LICENSE
-|      cluster.py                    main excutable function
+|      cluster.py                    clustering function
+|      search.py                     search function
 |      
 |------utils                         utilities
 |    |    __init__.py
